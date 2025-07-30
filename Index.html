@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Terminal de Ómnibus de Pozo Azul</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #0D47A1, #42A5F5);
+      color: #fff;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #1565C0;
+      padding: 20px;
+      justify-content: center;
+      gap: 20px;
+    }
+    header img {
+      height: 60px;
+    }
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+    main {
+      padding: 20px;
+    }
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 20px;
+    }
+    .horarios, .info {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    .horarios h2, .info h3 {
+      color: #FFEB3B;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0D47A1;
+    }
+    #qr {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="terminal.png.png" alt="Logo">
+  <h1>TERMINAL DE ÓMNIBUS DE POZO AZUL</h1>
+</header>
+
+<main>
+  <h2>Seleccione su destino:</h2>
+  <select id="destino" onchange="mostrarHorarios()">
+    <option value="">-- Seleccione --</option>
+    <option value="eldorado">Eldorado</option>
+    <option value="san_pedro">San Pedro</option>
+    <option value="bernardo">Bernardo de Irigoyen</option>
+    <option value="san_antonio">San Antonio</option>
+    <option value="posadas">Posadas</option>
+    <option value="san_vicente">San Vicente</option>
+    <option value="obera">Oberá</option>
+    <option value="el_soberbio">El Soberbio</option>
+  </select>
+
+  <div class="horarios" id="resultados"></div>
+
+  <div class="info">
+    <h3>Horarios de Atención</h3>
+    <p>Lunes a Viernes: 06:00 a 19:00</p>
+    <p>Sábado y Domingo: Cerrado</p>
+  </div>
+
+  <div class="info">
+    <h3>Importante</h3>
+    <p>El pasaje se paga al subir al colectivo.</p>
+  </div>
+
+  <div class="info">
+    <h3>Ubicación</h3>
+    <p>La terminal está ubicada en el centro de Pozo Azul, sobre el cruce de Ruta Provincial 17 y 20.</p>
+  </div>
+
+  <div id="qr">
+    <h3>Escaneá el QR para ingresar a esta página</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://tupagina.com&size=150x150" alt="QR Terminal">
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 Terminal de Ómnibus de Pozo Azul
+</footer>
+
+<script>
+  const horarios = {
+    eldorado: [
+      "05:00 - Crucero del Norte",
+      "06:00 - Kenia",
+      "06:20 - Kruse",
+      "07:00 - Expreso de la Selva",
+      "08:30 - Kenia",
+      "09:00 - Kenia",
+      "09:40 - Oro Verde",
+      "10:30 - Expreso Prox",
+      "13:00 - Itatí",
+      "13:20 - Kenia",
+      "14:00 - Kruse",
+      "14:20 - Kenia",
+      "15:30 - Crucero del Norte",
+      "16:00 - Sol del Norte",
+      "17:30 - Kenia",
+      "19:00 - Kruse"
+    ],
+    san_pedro: [
+      "09:00 - Itatí",
+      "11:00 - Kruse",
+      "11:30 - Sol del Norte",
+      "14:00 - Expreso Prox",
+      "19:00 - Kruse",
+      "20:00 - Expreso de la Selva"
+    ],
+    bernardo: [
+      "06:00 - Kenia",
+      "07:40 - Kenia",
+      "09:00 - Kenia",
+      "12:00 - Kenia",
+      "12:30 - Kruse",
+      "12:45 - Crucero del Norte",
+      "15:20 - Kenia",
+      "17:20 - Kenia",
+      "19:40 - Kenia"
+    ],
+    san_antonio: [
+      "15:20 - Kenia",
+      "17:20 - Kenia",
+      "19:40 - Kenia",
+      "21:00 - Kenia"
+    ],
+    posadas: [
+      "05:00 - Crucero del Norte",
+      "09:40 - Oro Verde",
+      "15:30 - Crucero del Norte"
+    ],
+    san_vicente: [
+      "09:00 - Itatí",
+      "14:00 - Expreso Prox"
+    ],
+    obera: [
+      "11:20 - Sol del Norte"
+    ],
+    el_soberbio: [
+      "14:00 - Expreso Prox"
+    ]
+  };
+
+  function mostrarHorarios() {
+    const destino = document.getElementById('destino').value;
+    const contenedor = document.getElementById('resultados');
+    contenedor.innerHTML = "";
+
+    if (destino && horarios[destino]) {
+      contenedor.innerHTML = `<h2>Horarios para ${document.getElementById('destino').selectedOptions[0].text}:</h2><ul>` +
+        horarios[destino].map(h => `<li>${h}</li>`).join('') +
+        "</ul>";
+    }
+  }
+</script>
+
+</body>
+</html>
